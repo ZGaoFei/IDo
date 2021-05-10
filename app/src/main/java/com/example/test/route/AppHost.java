@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.baselibrary.sendobj.Host;
-import com.example.baselibrary.sendobj.Route;
+import com.example.baselibrary.communication.Host;
+import com.example.baselibrary.communication.Route;
 import com.example.test.scheduletest.ScheduleTestActivity;
 
 public class AppHost implements Host {

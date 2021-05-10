@@ -1,4 +1,4 @@
-package com.example.baselibrary.sendobj;
+package com.example.baselibrary.communication;
 
 import android.content.Context;
 

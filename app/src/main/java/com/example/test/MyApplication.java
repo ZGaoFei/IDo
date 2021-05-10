@@ -3,7 +3,7 @@ package com.example.test;
 import android.app.Application;
 
 import com.example.alibrary.route.AHost;
-import com.example.baselibrary.sendobj.RouteDispatch;
+import com.example.baselibrary.communication.RouteDispatch;
 import com.example.blibrary.route.BHost;
 import com.example.test.route.AppHost;
 

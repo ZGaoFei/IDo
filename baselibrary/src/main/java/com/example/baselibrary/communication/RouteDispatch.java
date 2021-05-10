@@ -1,9 +1,6 @@
-package com.example.baselibrary.sendobj;
+package com.example.baselibrary.communication;
 
 import android.content.Context;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RouteDispatch {
     private static final RouteDispatch instance = new RouteDispatch();

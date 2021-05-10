@@ -2,8 +2,6 @@ package com.example.test;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.baselibrary.sendobj.Route;
-import com.example.baselibrary.sendobj.RouteDispatch;
+import com.example.baselibrary.communication.Route;
+import com.example.baselibrary.communication.RouteDispatch;
 
 public class MainActivity extends AppCompatActivity {
 

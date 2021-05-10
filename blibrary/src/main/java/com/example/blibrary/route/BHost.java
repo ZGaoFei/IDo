@@ -8,8 +8,8 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.baselibrary.sendobj.Host;
-import com.example.baselibrary.sendobj.Route;
+import com.example.baselibrary.communication.Host;
+import com.example.baselibrary.communication.Route;
 import com.example.blibrary.A;
 import com.example.blibrary.BFirstActivity;
 import com.example.blibrary.BFirstFragment;

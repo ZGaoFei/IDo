@@ -2,11 +2,10 @@ package com.example.alibrary.route;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.alibrary.AFirstActivity;
-import com.example.baselibrary.sendobj.Host;
-import com.example.baselibrary.sendobj.Route;
+import com.example.baselibrary.communication.Host;
+import com.example.baselibrary.communication.Route;
 
 public class AHost implements Host {
 

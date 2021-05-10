@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.baselibrary.sendobj.Route;
-import com.example.baselibrary.sendobj.RouteDispatch;
+import com.example.baselibrary.communication.Route;
+import com.example.baselibrary.communication.RouteDispatch;
 
 public class AFirstActivity extends AppCompatActivity {
 
