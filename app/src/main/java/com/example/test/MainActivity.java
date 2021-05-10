@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-
-        Lifecycle lifecycle = getLifecycle();
     }
 
     private void initView() {
@@ -78,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tvShow = findViewById(R.id.tv_app_show);
+
+        findViewById(R.id.bt_schedule).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "schedule_test", "", null);
+            }
+        });
     }
 
     @Override
