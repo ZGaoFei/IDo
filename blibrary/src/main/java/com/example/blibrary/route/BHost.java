@@ -26,7 +26,7 @@ public class BHost implements Host {
 
     Route.IRoute b = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             Log.e("zgf", "===b====" + data + "====" + url);
             callBack.run(A.add(data, url));
         }
@@ -34,7 +34,7 @@ public class BHost implements Host {
 
     Route.IRoute bAsync = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             Log.e("zgf", "===b====" + data + "====" + url);
 
             Thread thread = new Thread(new Runnable() {
@@ -65,7 +65,7 @@ public class BHost implements Host {
 
     Route.IRoute bBack = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             Intent intent = new Intent(context, BFirstActivity.class);
             intent.putExtra("data", data);
             intent.putExtra("url", url);
@@ -75,7 +75,7 @@ public class BHost implements Host {
 
     Route.IRoute bObj = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             BFirstFragment fragment = BFirstFragment.newInstance();
             callBack.run(fragment);
         }

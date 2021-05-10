@@ -8,9 +8,7 @@ import java.util.List;
 public class RouteDispatch {
     private static final RouteDispatch instance = new RouteDispatch();
 
-    private List<Host> hosts;
-
-    private Route route;
+    private final Route route;
 
     private RouteDispatch() {
         route = new Route();
@@ -21,22 +19,13 @@ public class RouteDispatch {
     }
 
     public void addHost(Host host) {
-        if (hosts == null) {
-            hosts = new ArrayList<>();
+        if (host != null) {
+            host.init(route);
         }
-        if (hosts.contains(host)) {
-            hosts.remove(host);
-        }
-        hosts.add(host);
     }
 
-    public void dispatch(Context context, String data, String url, Route.CallBack callBack) {
-        for (int i = 0; i < hosts.size(); i++) {
-            Host host = hosts.get(i);
-            Route route = new Route();
-            host.init(route);
-            route.doRoute(context, data, url, callBack);
-        }
+    public void dispatch(Context context, String url, String data, Route.CallBack callBack) {
+        route.doRoute(context, url, data, callBack);
     }
 
 }

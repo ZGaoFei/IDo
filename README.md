@@ -6,3 +6,9 @@
 6、A 打开 B 的页面，包含传值和回传值（返回值直接使用setResult即可）
 
 跨module的情况下，以上均可实现
+
+问题1：如何解决RouteDispatch.getInstance().addHost(Host)方法多次调用问题
+有一个module的话，需要调用一次，如果有多个，就需要调用多次，如何调用一次，或者自动将Host添加进去？
+解决：利用apt和注解在编译时生成代码，在app启动后去调用生成的代码将route添加进去（暂不支持）
+
+问题2：

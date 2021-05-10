@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,13 +24,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+
+        Lifecycle lifecycle = getLifecycle();
     }
 
     private void initView() {
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(MainActivity.this, "data", "a", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "a", "data", new Route.CallBack() {
                     @Override
                     public void run(Object str) {
                         Log.e("zgf", "=======onClick=====str==" + str);
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bt_a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(MainActivity.this, "data", "b", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "b", "data", new Route.CallBack() {
                     @Override
                     public void run(Object str) {
                         Log.e("zgf", "=======onClick=====str==" + str);
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bt_b).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(MainActivity.this, "data", "b_async", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "b_async", "data", new Route.CallBack() {
                     @Override
                     public void run(Object str) {
                         Log.e("zgf", "=======onClick=====str==" + str);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bt_b_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(MainActivity.this, "data", "b_back", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "b_back", "data", new Route.CallBack() {
                     @Override
                     public void run(Object str) {
                         tvShow.setText((String) str);

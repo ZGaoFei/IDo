@@ -15,7 +15,7 @@ public class AppHost implements Host {
 
     Route.IRoute app = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             Log.e("zgf", "===app====" + data + "====" + url);
             callBack.run(data + "=app=" + url);
         }

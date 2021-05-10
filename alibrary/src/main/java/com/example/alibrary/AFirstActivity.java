@@ -29,7 +29,7 @@ public class AFirstActivity extends AppCompatActivity {
         findViewById(R.id.bt_get_data).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "a first activity", "b", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "b", "a first activity", new Route.CallBack() {
                     @Override
                     public void run(Object str) {
                         Log.e("zgf", "====str=====" + str);
@@ -41,7 +41,7 @@ public class AFirstActivity extends AppCompatActivity {
         findViewById(R.id.bt_get_obj).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "data", "b_obj", new Route.CallBack() {
+                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "b_obj","data",  new Route.CallBack() {
                     @Override
                     public void run(Object obj) {
                         if (obj instanceof Fragment) {
@@ -56,7 +56,7 @@ public class AFirstActivity extends AppCompatActivity {
         findViewById(R.id.bt_b_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "data", "b_back", null);
+                RouteDispatch.getInstance().dispatch(AFirstActivity.this, "b_back","data",  null);
             }
         });
 

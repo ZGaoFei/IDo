@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Route {
     public interface IRoute {
-        void action(Context context, String data, String url, CallBack callBack);
+        void action(Context context, String url, String data, CallBack callBack);
     }
 
     public interface CallBack {
@@ -29,11 +29,11 @@ public class Route {
         }
     }
 
-    public void doRoute(Context context, String data, String url, CallBack callBack) {
+    public void doRoute(Context context, String url, String data, CallBack callBack) {
         if (hashMap != null) {
             IRoute iRoute = hashMap.get(url);
             if (iRoute != null) {
-                iRoute.action(context, data, url, callBack);
+                iRoute.action(context, url, data, callBack);
             }
         }
     }

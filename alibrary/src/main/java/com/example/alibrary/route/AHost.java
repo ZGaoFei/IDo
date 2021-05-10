@@ -17,7 +17,7 @@ public class AHost implements Host {
 
     Route.IRoute a = new Route.IRoute() {
         @Override
-        public void action(Context context, String data, String url, Route.CallBack callBack) {
+        public void action(Context context, String url, String data, Route.CallBack callBack) {
             Intent intent = new Intent(context, AFirstActivity.class);
             context.startActivity(intent);
         }
