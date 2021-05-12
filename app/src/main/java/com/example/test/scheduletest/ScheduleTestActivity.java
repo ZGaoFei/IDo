@@ -24,7 +24,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
-                Schedule.runOnMainThread(new Runnable() {
+                Schedule.getInstance().runOnMainThread(new Runnable() {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -40,7 +40,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
-                        Schedule.runOnMainThread(new Runnable() {
+                        Schedule.getInstance().runOnMainThread(new Runnable() {
                             @Override
                             public void run() {
                                 Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -56,7 +56,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
-                Schedule.runOnBackground(new Runnable() {
+                Schedule.getInstance().runOnBackground(new Runnable() {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -72,7 +72,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
-                        Schedule.runOnBackground(new Runnable() {
+                        Schedule.getInstance().runOnBackground(new Runnable() {
                             @Override
                             public void run() {
                                 Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -89,7 +89,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
                 Schedule.ThreadMode mode = Schedule.ThreadMode.ASYNC;
-                Schedule.runWithThreadMode(mode, new Runnable() {
+                Schedule.getInstance().runWithThreadMode(mode, new Runnable() {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -106,7 +106,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
                     public void run() {
                         Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
                         Schedule.ThreadMode mode = Schedule.ThreadMode.ASYNC;
-                        Schedule.runWithThreadMode(mode, new Runnable() {
+                        Schedule.getInstance().runWithThreadMode(mode, new Runnable() {
                             @Override
                             public void run() {
                                 Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
@@ -122,7 +122,7 @@ public class ScheduleTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
-                Schedule.runOnMainThread(2000, new Runnable() {
+                Schedule.getInstance().runOnMainThread(2000, new Runnable() {
                     @Override
                     public void run() {
                         Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());

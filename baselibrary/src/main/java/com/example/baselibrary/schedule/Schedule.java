@@ -7,6 +7,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -15,12 +17,11 @@ import java.util.concurrent.TimeUnit;
  * 简单的实现线程的切换
  * <p>
  * ThreadMode.POSTING，默认的线程模式，在那个线程发送事件就在对应线程处理事件
- * ThreadMode.MAIN，如在主线程（UI线程）发送事件，则直接在主线程处理事件；如果在子线程发送事件，然后通过 Handler 切换到主线程
- * ThreadMode.MAIN_ORDERED，无论在那个线程发送事件，通过 Handler 切换到主线程
- * ThreadMode.BACKGROUND，如果在主线程发送事件，通过线程池依次处理事件；如果在子线程发送事件，则直接在发送事件的线程处理事件。
- * ThreadMode.ASYNC，无论在那个线程发送事件，都将事件通过线程池处理。
+ * ThreadMode.MAIN，如在主线程（UI线程）发送事件，则直接在主线程处理事件；如果在子线程发送事件，【则先将事件入队列】，然后通过 Handler 切换到主线程，依次处理事件。
+ * ThreadMode.MAIN_ORDERED，无论在那个线程发送事件，【都先将事件入队列】，然后通过 Handler 切换到主线程，依次处理事件。
+ * ThreadMode.BACKGROUND，如果在主线程发送事件，【则先将事件入队列】，然后通过线程池依次处理事件；如果在子线程发送事件，则直接在发送事件的线程处理事件。
+ * ThreadMode.ASYNC，无论在那个线程发送事件，【都将事件入队列】，然后通过线程池处理。
  * <p>
- * 没有包含任务队列
  */
 public class Schedule {
     private static final int CORE_POOL_SIZE = 0;
@@ -37,6 +38,15 @@ public class Schedule {
             KEEP_ALIVE_TIME,
             TimeUnit.SECONDS,
             new LinkedBlockingQueue<Runnable>());
+
+    private static final Schedule instance = new Schedule();
+
+    public static Schedule getInstance() {
+        return instance;
+    }
+
+    private Schedule() {
+    }
 
     public enum ThreadMode {
         POSITION,
@@ -71,20 +81,20 @@ public class Schedule {
      * 在UI线程执行，则直接交给UI线程执行
      * 在子线程执行，则通过handler发送给主线程执行
      */
-    public static void runOnMainThread(Runnable runnable) {
+    public void runOnMainThread(Runnable runnable) {
         runOnMainThread(0, runnable);
     }
 
-    public static void runOnMainThread(int delay, Runnable runnable) {
+    public void runOnMainThread(int delay, Runnable runnable) {
         Thread thread = Thread.currentThread();
         inMainThread(delay, runnable, thread);
     }
 
-    private static void inMainThread(Runnable runnable, Thread thread) {
+    private void inMainThread(Runnable runnable, Thread thread) {
         inMainThread(0, runnable, thread);
     }
 
-    private static void inMainThread(int delay, Runnable runnable, Thread thread) {
+    private void inMainThread(int delay, Runnable runnable, Thread thread) {
         if (thread == Looper.getMainLooper().getThread()) {
             if (delay > 0) {
                 sendToMainThread(delay, runnable);
@@ -92,15 +102,17 @@ public class Schedule {
                 runnable.run();
             }
         } else {
-            sendToMainThread(delay, runnable);
+            // 加入到任务队列
+            ScheduleRunnable scheduleRunnable = getScheduleRun(runnable, ThreadMode.MAIN);
+            ScheduleQueue.offer(scheduleRunnable);
         }
     }
 
-    private static void sendToMainThread(Runnable runnable) {
+    protected void sendToMainThread(Runnable runnable) {
         sendToMainThread(0, runnable);
     }
 
-    private static void sendToMainThread(int delay, Runnable runnable) {
+    private void sendToMainThread(int delay, Runnable runnable) {
         if (delay < 0) {
             delay = 0;
         }
@@ -114,14 +126,15 @@ public class Schedule {
      * 在子线程中执行，则直接交给当前子线程运行
      * 在UI线程执行，则放入线程池交给子线程运行
      */
-    public static void runOnBackground(Runnable runnable) {
+    public void runOnBackground(Runnable runnable) {
         Thread thread = Thread.currentThread();
         inAsync(runnable, thread);
     }
 
-    private static void inAsync(Runnable runnable, Thread thread) {
+    private void inAsync(Runnable runnable, Thread thread) {
         if (thread == Looper.getMainLooper().getThread()) { // 在主线程中运行
-            executor.execute(runnable);
+            ScheduleRunnable scheduleRun = getScheduleRun(runnable, ThreadMode.BACKGROUND);
+            ScheduleQueue.offer(scheduleRun);
         } else {
             runnable.run();
         }
@@ -130,7 +143,7 @@ public class Schedule {
     /**
      * 制定线程运行类型
      */
-    public static void runWithThreadMode(ThreadMode mode, Runnable runnable) {
+    public void runWithThreadMode(ThreadMode mode, Runnable runnable) {
         Thread thread = Thread.currentThread();
         switch (mode) {
             case POSITION:
@@ -140,17 +153,35 @@ public class Schedule {
                 inMainThread(runnable, thread);
                 break;
             case MAIN_ORDERED:
-                sendToMainThread(runnable);
+                mainOrder(runnable);
                 break;
             case BACKGROUND:
                 inAsync(runnable, thread);
                 break;
             case ASYNC:
-                executor.execute(runnable);
+                async(runnable);
                 break;
             default:
                 break;
         }
+    }
+
+    private void mainOrder(Runnable runnable) {
+        ScheduleRunnable scheduleRun = getScheduleRun(runnable, ThreadMode.MAIN_ORDERED);
+        ScheduleQueue.offer(scheduleRun);
+    }
+
+    private void async(Runnable runnable) {
+        ScheduleRunnable scheduleRun = getScheduleRun(runnable, ThreadMode.ASYNC);
+        ScheduleQueue.offer(scheduleRun);
+    }
+
+    protected void execute(Runnable runnable) {
+        executor.execute(runnable);
+    }
+
+    private ScheduleRunnable getScheduleRun(Runnable runnable, ThreadMode mode) {
+        return new ScheduleRunnable(runnable, mode, Schedule.this);
     }
 
 }

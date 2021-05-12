@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 1、将任务按顺序执行（是否可以指定同时执行）
+ * 1、将任务按顺序执行
  * 2、可以指定下一个任务所在的线程
  * 3、可以将上一个任务的执行结果传递给下一个任务
  * 4、链式调用
@@ -53,14 +53,14 @@ public class Serializer {
             Op poll = queue.poll();
             if (poll instanceof MainOp) {
                 int delay = ((MainOp) poll).delay;
-                Schedule.runOnMainThread(delay, new Runnable() {
+                Schedule.getInstance().runOnMainThread(delay, new Runnable() {
                     @Override
                     public void run() {
                         poll.onNext(Serializer.this, z);
                     }
                 });
             } else if (poll instanceof AsyncOp) {
-                Schedule.runOnBackground(new Runnable() {
+                Schedule.getInstance().runOnBackground(new Runnable() {
                     @Override
                     public void run() {
                         poll.onNext(Serializer.this, z);
