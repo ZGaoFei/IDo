@@ -117,5 +117,18 @@ public class ScheduleTestActivity extends AppCompatActivity {
                 thread.start();
             }
         });
+
+        findViewById(R.id.bt_ui_delay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
+                Schedule.runOnMainThread(2000, new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("zgf", "====currentThread==run==" + Thread.currentThread().getName());
+                    }
+                });
+            }
+        });
     }
 }

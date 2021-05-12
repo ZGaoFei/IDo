@@ -43,4 +43,10 @@
         android:layout_height="wrap_content"
         android:text="schedule test" />
 
+    <Button
+        android:id="@+id/bt_serializer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="serializer test" />
+
 </LinearLayout>

@@ -81,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
                 RouteDispatch.getInstance().dispatch(MainActivity.this, "schedule_test", "", null);
             }
         });
+
+        findViewById(R.id.bt_serializer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RouteDispatch.getInstance().dispatch(MainActivity.this, "serializer_test", "", null);
+            }
+        });
     }
 
     @Override

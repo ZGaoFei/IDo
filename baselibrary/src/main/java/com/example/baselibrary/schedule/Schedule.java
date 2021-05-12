@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * ThreadMode.MAIN_ORDERED，无论在那个线程发送事件，通过 Handler 切换到主线程
  * ThreadMode.BACKGROUND，如果在主线程发送事件，通过线程池依次处理事件；如果在子线程发送事件，则直接在发送事件的线程处理事件。
  * ThreadMode.ASYNC，无论在那个线程发送事件，都将事件通过线程池处理。
- *
+ * <p>
  * 没有包含任务队列
  */
 public class Schedule {
@@ -27,7 +27,7 @@ public class Schedule {
     private static final int MAX_POOL_SIZE = 8;
     private static final int KEEP_ALIVE_TIME = 3;
 
-    private static final int RUN_MAIN_THREAD = 0;
+    private static final int RUN_MAIN_THREAD = 0x0001;
 
     private static final MainHandler handler = new MainHandler(Looper.getMainLooper());
 
@@ -72,8 +72,42 @@ public class Schedule {
      * 在子线程执行，则通过handler发送给主线程执行
      */
     public static void runOnMainThread(Runnable runnable) {
+        runOnMainThread(0, runnable);
+    }
+
+    public static void runOnMainThread(int delay, Runnable runnable) {
         Thread thread = Thread.currentThread();
-        inMainThread(runnable, thread);
+        inMainThread(delay, runnable, thread);
+    }
+
+    private static void inMainThread(Runnable runnable, Thread thread) {
+        inMainThread(0, runnable, thread);
+    }
+
+    private static void inMainThread(int delay, Runnable runnable, Thread thread) {
+        if (thread == Looper.getMainLooper().getThread()) {
+            if (delay > 0) {
+                sendToMainThread(delay, runnable);
+            } else {
+                runnable.run();
+            }
+        } else {
+            sendToMainThread(delay, runnable);
+        }
+    }
+
+    private static void sendToMainThread(Runnable runnable) {
+        sendToMainThread(0, runnable);
+    }
+
+    private static void sendToMainThread(int delay, Runnable runnable) {
+        if (delay < 0) {
+            delay = 0;
+        }
+        Message message = Message.obtain();
+        message.what = RUN_MAIN_THREAD;
+        message.obj = runnable;
+        handler.sendMessageDelayed(message, delay);
     }
 
     /**
@@ -83,21 +117,6 @@ public class Schedule {
     public static void runOnBackground(Runnable runnable) {
         Thread thread = Thread.currentThread();
         inAsync(runnable, thread);
-    }
-
-    private static void inMainThread(Runnable runnable, Thread thread) {
-        if (thread == Looper.getMainLooper().getThread()) { // 在主线程中执行
-            runnable.run();
-        } else {
-            sendToMainThread(runnable);
-        }
-    }
-
-    private static void sendToMainThread(Runnable runnable) {
-        Message message = Message.obtain();
-        message.what = RUN_MAIN_THREAD;
-        message.obj = runnable;
-        handler.sendMessage(message);
     }
 
     private static void inAsync(Runnable runnable, Thread thread) {
