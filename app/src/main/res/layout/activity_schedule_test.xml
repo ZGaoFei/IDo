@@ -69,4 +69,13 @@
         app:layout_constraintRight_toRightOf="parent"
         android:text="ui线程调用，延时2s后执行"/>
 
+    <Button
+        android:id="@+id/bt_multi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/bt_ui_delay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="多个任务执行"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,10 +33,11 @@ public class ScheduleQueue {
             Schedule.ThreadMode mode = poll.getMode();
             Runnable runnable = poll.getRunnable();
             Schedule schedule = poll.getSchedule();
+            int delay = poll.getDelay();
             switch (mode) {
                 case MAIN:
                 case MAIN_ORDERED:
-                    schedule.sendToMainThread(runnable);
+                    schedule.sendToMainThread(delay, runnable);
                     break;
                 case BACKGROUND:
                 case ASYNC:

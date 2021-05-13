@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * <p>
  */
 public class Schedule {
-    private static final int CORE_POOL_SIZE = 0;
+    private static final int CORE_POOL_SIZE = 4;
     private static final int MAX_POOL_SIZE = 8;
     private static final int KEEP_ALIVE_TIME = 3;
 
@@ -104,6 +104,7 @@ public class Schedule {
         } else {
             // 加入到任务队列
             ScheduleRunnable scheduleRunnable = getScheduleRun(runnable, ThreadMode.MAIN);
+            scheduleRunnable.setDelay(delay);
             ScheduleQueue.offer(scheduleRunnable);
         }
     }
@@ -112,7 +113,7 @@ public class Schedule {
         sendToMainThread(0, runnable);
     }
 
-    private void sendToMainThread(int delay, Runnable runnable) {
+    protected void sendToMainThread(int delay, Runnable runnable) {
         if (delay < 0) {
             delay = 0;
         }

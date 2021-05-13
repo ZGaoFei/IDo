@@ -130,5 +130,109 @@ public class ScheduleTestActivity extends AppCompatActivity {
                 });
             }
         });
+
+        findViewById(R.id.bt_multi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
+
+//                multiRun();
+//                multiRunAsync();
+                multiRunAsync2();
+            }
+        });
+    }
+
+    private void multiRun() {
+        Schedule.getInstance().runOnMainThread(2000, new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread==2000=1=" + Thread.currentThread().getName());
+            }
+        });
+
+        Schedule.getInstance().runOnMainThread(2000, new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread==2000=2=" + Thread.currentThread().getName());
+            }
+        });
+
+        Schedule.getInstance().runOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread==run=1=" + Thread.currentThread().getName());
+            }
+        });
+
+        Schedule.getInstance().runOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread==run=2=" + Thread.currentThread().getName());
+            }
+        });
+    }
+
+    private void multiRunAsync() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
+                multiRun();
+            }
+        });
+        thread.start();
+    }
+
+    private void multiRunAsync2() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "====currentThread====" + Thread.currentThread().getName());
+                Schedule.getInstance().runWithThreadMode(Schedule.ThreadMode.ASYNC, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("zgf", "====currentThread==run==1=200=" + Thread.currentThread().getName());
+                    }
+                });
+
+                Schedule.getInstance().runWithThreadMode(Schedule.ThreadMode.ASYNC, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(4000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("zgf", "====currentThread==run==2=400=" + Thread.currentThread().getName());
+                    }
+                });
+
+                Schedule.getInstance().runWithThreadMode(Schedule.ThreadMode.ASYNC, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(4000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("zgf", "====currentThread==run==3=400=" + Thread.currentThread().getName());
+                    }
+                });
+
+                Schedule.getInstance().runWithThreadMode(Schedule.ThreadMode.ASYNC, new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("zgf", "====currentThread==run=4=" + Thread.currentThread().getName());
+                    }
+                });
+            }
+        });
+        thread.start();
     }
 }
