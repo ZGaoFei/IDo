@@ -3,14 +3,19 @@ package com.example.test;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.baselibrary.communication.Route;
 import com.example.baselibrary.communication.RouteDispatch;
+import com.example.test.keyboard.KeyBoardActivity;
+import com.example.test.listfragment.ListFragmentActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +27,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initView();
+    }
+
+    /**
+     * 跳转到应用市场
+     * OPPO
+     * 华为
+     * 小米
+     * 三星
+     */
+    private void test() {
+        if (checkDeviceByManufacturer("samsung")) {
+            goToSamsungAppsMarket(this, "com.xunlei.tdlive");
+        } else {
+            Uri uri = Uri.parse("market://details?id=com.xunlei.tdlive");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        if (!TextUtils.isEmpty(marketPkg)) {
+//            intent.setPackage(marketPkg);
+//        }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
+    private static void goToSamsungAppsMarket(Context context, String packageName) {
+        Uri uri = Uri.parse("http://www.samsungapps.com/appquery/appDetail.as?appId=" + packageName);
+        Intent goToMarket = new Intent();
+        goToMarket.setClassName("com.sec.android.app.samsungapps", "com.sec.android.app.samsungapps.Main");
+        goToMarket.setData(uri);
+        context.startActivity(goToMarket);
+    }
+
+    public static boolean checkDeviceByManufacturer(String manufacturerName) {
+        return !TextUtils.isEmpty(android.os.Build.MANUFACTURER) && android.os.Build.MANUFACTURER.equalsIgnoreCase(manufacturerName);
     }
 
     private void initView() {
@@ -86,6 +124,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RouteDispatch.getInstance().dispatch(MainActivity.this, "serializer_test", "", null);
+            }
+        });
+
+        findViewById(R.id.bt_key_board).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyBoardActivity.start(MainActivity.this);
+            }
+        });
+
+        findViewById(R.id.bt_list_fragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListFragmentActivity.start(MainActivity.this);
             }
         });
     }

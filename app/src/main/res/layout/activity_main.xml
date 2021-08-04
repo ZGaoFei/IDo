@@ -49,4 +49,16 @@
         android:layout_height="wrap_content"
         android:text="serializer test" />
 
+    <Button
+        android:id="@+id/bt_key_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="key board test" />
+
+    <Button
+        android:id="@+id/bt_list_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="list fragment test" />
+
 </LinearLayout>
