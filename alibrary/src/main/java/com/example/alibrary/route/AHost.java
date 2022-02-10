@@ -21,4 +21,11 @@ public class AHost implements Host {
             context.startActivity(intent);
         }
     };
+
+    Route.IRoute<String> b = new Route.IRoute<String>() {
+        @Override
+        public void action(Context context, String url, String data, Route.CallBack<String> callBack) {
+            callBack.run("");
+        }
+    };
 }

@@ -1,64 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/bt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="打开A module的页面，包含传值" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="调用B module的方法包含传值和返回值" />
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="打开A module的页面，包含传值" />
 
-    <Button
-        android:id="@+id/bt_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="调用B module的异步方法，包含传值和返回值" />
+        <Button
+            android:id="@+id/bt_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调用B module的方法包含传值和返回值" />
 
-    <Button
-        android:id="@+id/bt_b_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="打开B module的页面，包含传值和返回值" />
+        <Button
+            android:id="@+id/bt_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调用B module的异步方法，包含传值和返回值" />
 
-    <TextView
-        android:id="@+id/tv_app_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        <Button
+            android:id="@+id/bt_b_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="打开B module的页面，包含传值和返回值" />
 
-    <Button
-        android:id="@+id/bt_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="schedule test" />
+        <TextView
+            android:id="@+id/tv_app_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/bt_serializer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="serializer test" />
+        <Button
+            android:id="@+id/bt_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="schedule test" />
 
-    <Button
-        android:id="@+id/bt_key_board"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="key board test" />
+        <Button
+            android:id="@+id/bt_serializer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="serializer test" />
 
-    <Button
-        android:id="@+id/bt_list_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="list fragment test" />
+        <Button
+            android:id="@+id/bt_key_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="key board test" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/bt_list_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="list fragment test" />
+
+        <Button
+            android:id="@+id/bt_trace_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="trace view test" />
+
+        <com.example.test.wrapview.WrapLayout
+            android:id="@+id/wrap_layout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#111111"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#333333"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#555555"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#777777"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#999999"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#aaaaaa"/>
+
+        </com.example.test.wrapview.WrapLayout>
+
+    </LinearLayout>
+
+</ScrollView>

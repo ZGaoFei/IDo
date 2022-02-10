@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test">
-        <activity android:name=".listfragment.ListFragmentActivity"></activity>
+        <activity android:name=".traceview.TraceViewTestActivity"/>
+        <activity android:name=".listfragment.ListFragmentActivity" />
         <activity android:name=".keyboard.KeyBoardActivity" />
         <activity android:name=".serializertest.SerializerTestActivity" />
         <activity android:name=".scheduletest.ScheduleTestActivity" />

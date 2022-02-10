@@ -21,6 +21,10 @@ public class RouteDispatch {
         }
     }
 
+    public void dispatch(Context context, String url, String data) {
+        route.doRoute(context, url, data, null);
+    }
+
     public void dispatch(Context context, String url, String data, Route.CallBack callBack) {
         route.doRoute(context, url, data, callBack);
     }

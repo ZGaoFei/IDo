@@ -5,12 +5,12 @@ import android.content.Context;
 import java.util.HashMap;
 
 public class Route {
-    public interface IRoute {
-        void action(Context context, String url, String data, CallBack callBack);
+    public interface IRoute<T> {
+        void action(Context context, String url, String data, CallBack<T> callBack);
     }
 
-    public interface CallBack {
-        void run(Object obj);
+    public interface CallBack<T> {
+        void run(T obj);
     }
 
     private HashMap<String, IRoute> hashMap;

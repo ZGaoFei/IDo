@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
 public class BFirstActivity extends AppCompatActivity {
+
+    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,21 @@ public class BFirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("zgf", "======回传值======");
-                Intent result = new Intent();
-                result.putExtra("data", "hello world!");
-                setResult(RESULT_OK, result);
-
-                finish();
+//                Intent result = new Intent();
+//                result.putExtra("data", "hello world!");
+//                setResult(RESULT_OK, result);
+//
+//                finish();
+                frameLayout.setVisibility(View.VISIBLE);
+                test();
             }
         });
+
+        frameLayout = findViewById(R.id.fl_animation);
+    }
+
+    private void test() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.annual_ceremony_start);
+        frameLayout.startAnimation(animation);
     }
 }
