@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.demo.reviewlibrary.ReviewActivity;
 import com.example.baselibrary.communication.Route;
 import com.example.baselibrary.communication.RouteDispatch;
 import com.example.test.keyboard.KeyBoardActivity;
@@ -168,13 +169,13 @@ public class MainActivity extends AppCompatActivity {
         File rootDirectory = Environment.getRootDirectory();
         File externalStoragePublicDirectory = Environment.getExternalStoragePublicDirectory("cache");
         Log.e("zgf", "=========" + externalStorageDirectory1
-        + "=====" + storageDirectory1
-        + "=====" + dataDirectory
-        + "=====" + downloadCacheDirectory
-        + "=====" + externalStorageState1
-        + "=====" + rootDirectory
-        + "=====" + externalStoragePublicDirectory
-                ); // /storage/emulated/0=====/storage=====/data=====/data/cache=====mounted=====/system=====/storage/emulated/0/cache
+                + "=====" + storageDirectory1
+                + "=====" + dataDirectory
+                + "=====" + downloadCacheDirectory
+                + "=====" + externalStorageState1
+                + "=====" + rootDirectory
+                + "=====" + externalStoragePublicDirectory
+        ); // /storage/emulated/0=====/storage=====/data=====/data/cache=====mounted=====/system=====/storage/emulated/0/cache
     }
 
     /**
@@ -211,11 +212,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     int num = 2;
+
     private void initView() {
         findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num ++;
+                num++;
                 Log.e("zgf", "======num======" + num);
                 wrapLayout.showChildrenNum(num);
 
@@ -303,6 +305,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         wrapLayout = findViewById(R.id.wrap_layout);
+
+        findViewById(R.id.bt_review).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReviewActivity.start(MainActivity.this);
+            }
+        });
     }
 
     @Override

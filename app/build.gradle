@@ -41,4 +41,5 @@ dependencies {
     implementation project(':baselibrary')
     implementation project(':alibrary')
     implementation project(':blibrary')
+    implementation project(':reviewlibrary')
 }

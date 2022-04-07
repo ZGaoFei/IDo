@@ -1,3 +1,4 @@
+include ':reviewlibrary'
 include ':baselibrary'
 include ':blibrary'
 include ':alibrary'

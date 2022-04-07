@@ -21,6 +21,14 @@ public class RouteDispatch {
         }
     }
 
+    public void dispatch(String url) {
+        route.doRoute(null, url, null, null);
+    }
+
+    public void dispatch(Context context, String url) {
+        route.doRoute(context, url, null, null);
+    }
+
     public void dispatch(Context context, String url, String data) {
         route.doRoute(context, url, data, null);
     }
